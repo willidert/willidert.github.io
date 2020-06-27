@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pomodoro APP</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <header class="container">
+        <h1>Pomodoro APP</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </header>
+    <div id="app">
+        <div id="pomodoro-clock-actions">
+            <div class="pomodoro-input">
+                <label>Work Duration</label>
+                <input
+                    type="number"
+                    name="input-work-duration"
+                    id="input-work-duration">
+            </div>
+            <div class="pomodoro-input">
+                <label>Break Duration</label>
+                <input
+                    type="number"
+                    name="input-break-duration"
+                    id="input-break-duration">
+            </div>
+        </div>
+        <div id="pomodoro-container">
+            <div id="pomodoro-clock">
+                <div class="canvas-wrap">
+                    <canvas id="canvas" width="400" height="400"></canvas>
+                    <div id="teste">
+                        <div id="pomodoro-timer"></div>
+                        <div class="pomodoro-clock-actions">
+                            <button id="pomodoro-start">Start</button>
+                            <!-- <button id="pomodoro-pause">Pause</button> -->
+                            <button id="pomodoro-stop">Stop</button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        id="pomodoro-clock-task"
+                        placeholder="Enter your task..."
+                        value=""
+                    >
+                </div>
+                <div id="pomodoro-clock-title">
+                    <span>Changes made here will reflect at the start of the next work/break session</span>
+                </div>
+                <!-- <div id="pomodoro-clock-actions">
+                    <div class="pomodoro-input">
+                        <label>Work Duration</label>
+                        <input
+                            type="number"
+                            name="input-work-duration"
+                            id="input-work-duration">
+                    </div>
+                    <div class="pomodoro-input">
+                        <label>Break Duration</label>
+                        <input
+                            type="number"
+                            name="input-break-duration"
+                            id="input-break-duration">
+                    </div>
+                </div> -->
+                <div id="pomodoro-info">
+                    <h3>Your Sessions</h3>
+                    <ul id="pomodoro-sessions"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="main.js"></script>
+</body>
+</html>
