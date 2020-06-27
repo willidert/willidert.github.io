@@ -1,0 +1,56 @@
+.container {
+    margin: 0 auto;
+    width: 540px;
+    align-content: center;
+    text-align: center;
+}
+
+.canvas-wrap {
+    align-content: center;
+    position: relative;
+    width: 540px;
+    margin: 0 auto;
+}
+
+#teste {
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left:  50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+#canvas {
+    z-index: -1;
+    margin: 0 auto;
+    display: block;
+}
+
+#pomodoro-timer {
+    font-size: 50px;
+    color: #3949ab;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+}
+
+.pomodoro-clock-actions {
+    text-align: center;
+}
+
+.pomodoro-clock-actions button {
+    border-style: none;
+    border-radius: 2px;
+    /*background-color: #45abc2;*/
+    padding: 2px 12px;
+
+}
+
+/*#pomodoro-clock {
+    display: flex;
+}*/
