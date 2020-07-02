@@ -2,13 +2,13 @@
 
 ## Introdução
 
-Descobri um [repo](https://www.youtube.com/watch?v=TNzCfgwIDCY) com alguns desafios para treinar. Esse é um deles, um relógio de pomodoro.
+Descobri um [repo](https://www.youtube.com/watch?v=TNzCfgwIDCY) com alguns desafios para treinar. Esse é um deles, um relógio de pomodoro. Existem muitos por aí, no meu adicionei uma barra circular de progresso :)
 
 ## User Stories
 
--   [ ] User can see a timer for 25 minutes - the **working** session
--   [ ] After the **working** session is over, the User can see a timer for 5 minutes - the **break** session
--   [ ] User can _start_ / _pause_, _stop_ and _reset_ the timers
+-   [x] User can see a timer for 25 minutes - the **working** session
+-   [x] After the **working** session is over, the User can see a timer for 5 minutes - the **break** session
+-   [x] User can _start_ / _pause_, _stop_ and _reset_ the timers
 
 ## Bonus features
 
@@ -26,9 +26,10 @@ Descobri um [repo](https://www.youtube.com/watch?v=TNzCfgwIDCY) com alguns desaf
 - [x] adicionar regra p relógio (parte cinza aparecer quando a página é carregada , junto com o timer em 00:00)
 - [ ] botar os botões de incremento no relógio junto com os numeros
 - [ ] botar a task label junto com o relogio tambem
-- [ ] corrigir break q n reseta o canvas
+- [x] corrigir break q n reseta o canvas
 - [ ] duração do break n altera com o input (Esse aqui ta pegando oh. Preciso pensar com mais calma)
 - [x] arrumar o displaySessionLog que tava mostrando sempre "< 1 min"
 - [x] arrumar erros de logica no sessionLog (mostrar o label 
 correto)
-- [ ] Redesenhar o canvas no break
+- [x] Redesenhar o canvas no break
+- [x] Canvas descompassado com o timer (esse aqui deu trabalho demais)
