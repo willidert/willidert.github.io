@@ -20,8 +20,6 @@
     transform: translate(-50%, -50%);
     width: 200px;
     height: 200px;
-    display: flex;
-    flex-direction: column-reverse;
 }
 
 #canvas {
@@ -33,10 +31,16 @@
 #pomodoro-timer {
     font-size: 50px;
     color: #3949ab;
+    text-align: center;
+}
+
+.pomodoro-timer-box {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
 }
 
 .pomodoro-clock-actions {
@@ -46,11 +50,31 @@
 .pomodoro-clock-actions button {
     border-style: none;
     border-radius: 2px;
-    /*background-color: #45abc2;*/
     padding: 2px 12px;
 
 }
 
-/*#pomodoro-clock {
+.update-buttons {
     display: flex;
-}*/
+    justify-content: space-between;
+    align-self: center;
+    width: 84%;
+}
+
+.arrow-up {
+    border: 20px solid transparent;
+    border-bottom: 20px solid #f00;
+    background-color: transparent;
+}
+
+.disable {
+    /*cursor: not-allowed;*/
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.arrow-bottom {
+    border: 20px solid transparent;
+    border-top: 20px solid #f00;
+    background-color: transparent;
+}

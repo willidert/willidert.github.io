@@ -1,69 +1,78 @@
 const pomodoroTimer = document.querySelector('#pomodoro-timer')
 
-const startPauseButton = document.querySelector('#pomodoro-start')
-// const pauseButton = document.querySelector('#pomodoro-pause')
+const playPauseButton = document.querySelector('#pomodoro-start')
 const stopButton = document.querySelector('#pomodoro-stop')
+const resetButton = document.querySelector('#pomodoro-reset')
+
+const modeWork = document.querySelector('#update-work-session')
+const modeBreak = document.querySelector('#update-break-session')
+
 var can = document.querySelector('#canvas')
 const posX = can.width/2
 const posY = can.height/2
 var c = can.getContext('2d')
 var degrees = 0
 
-let updateWorkSessionDuration
-let updateBreakSessionDuration
-let workDurationInput = document.querySelector('#input-work-duration')
-let breakDurationInput = document.querySelector('#input-break-duration')
-
-workDurationInput.value = '25'
-breakDurationInput.value = '5'
-
 let type = 'Work'
 let timeSpentInCurrentSession = 0
 let currentTaskLabel = document.querySelector('#pomodoro-clock-task') 
 
-workDurationInput.addEventListener('input', () => {
-    updateWorkSessionDuration = minutesToSeconds(workDurationInput.value)
-})
-
-breakDurationInput.addEventListener('input', () => {
-    updateBreakSessionDuration = minutesToSeconds(breakDurationInput.value)
-})
-
-// in seconds = 25min
 let workSessionDuration = 1500
 let currentTimeLeftSession = 1500
-
-// in seconds = 5 min
 let breakSessionDuration = 300
 
-// controlar o timer
+let contBreakSessions = 1
+let incremento
+
 let isClockStopped = true
 let isClockRunning = false
+let mode = true
+let isDrawRunning = true
 
-// Start
-startPauseButton.addEventListener('click', () => {
+playPauseButton.addEventListener('click', () => {
     toggleClock()
 })
 
-// Stop
 stopButton.addEventListener('click', () => {
     toggleClock(true)
 })
 
+resetButton.addEventListener('click', () => {
+    resetTimer()
+})
+
+// aplicar os timers corretamente
+modeBreak.addEventListener('click', () => {
+    //display break timer
+    currentTimeLeftSession = breakSessionDuration
+    displayCurrentTimeLeftSession(currentTimeLeftSession)
+    mode = false
+    disableButtons()
+})
+
+modeWork.addEventListener('click', () => {
+    //display work timer
+    currentTimeLeftSession = workSessionDuration
+    displayCurrentTimeLeftSession(currentTimeLeftSession)
+    mode = true
+    disableButtons()
+})
+
 window.onload = () => {
-    displayCurrentTimeLeftSession()
+    displayCurrentTimeLeftSession(currentTimeLeftSession)
     drawCircleBar()
     stopButton.disabled = true
 }
 
 const toggleClock = (reset) => {
+    // disableClockActions()
+    incremento = 360/currentTimeLeftSession
     if (reset) {
-        // Stop the timer
+        // Parar o relogio
         stopClock()
-        displayCurrentTimeLeftSession()
         drawCircleBar()
         stopButton.disabled = true
-        startPauseButton.innerText = "Start"
+        playPauseButton.innerText = "Start"
         // currentTaskLabel.value = ""
         degrees = 0
     }
@@ -71,41 +80,35 @@ const toggleClock = (reset) => {
         if (isClockRunning === true) {
             // Pause the timer
             isClockRunning = false
-            isClockStopped = true
+            // isClockStopped = true
             clearInterval(clockTimer)
-            startPauseButton.innerText = "Start"
+            // clearInterval(clockDraw)
+            playPauseButton.innerText = "Start"
         }
         else {
-            // Start the timer
-            if (isClockStopped) {
-                // atualizar a duração da tarefa
-                if (currentTimeLeftSession === workSessionDuration || currentTimeLeftSession === breakSessionDuration){
-                    // preciso verificar a ordem disso aqui
-                    console.log("updated at begin")
-                    setUpdatedTimers()
-                }
-                isClockStopped = false
-                isClockRunning = true
-                startPauseButton.innerText = "Pause"
-                stopButton.disabled = false
-                // start the timer
-                clockTimer = setInterval(() => {
-                    stepDown()
-                    drawCircleBarProgress()
-                }, 1000)
-
+            isClockStopped = false
+            isClockRunning = true
+            playPauseButton.innerText = "Pause"
+            stopButton.disabled = false
+            // start the timer
+            clockTimer = setInterval(() => {
+                stepDown()
+                if (isDrawRunning) drawCircleBarProgress(incremento)
                 // alteraçoes p deixar o relogio c mais fluidez
                 // alterar p milisegundo assim a ideia de movimento fica melhor :)
-                // clockDraw = setInterval(() => {
-                //     drawCircleBarProgress()
-                // }, 100)
-            }
+                // if (isDrawRunning) {
+                //     clockDraw = setInterval(() => {
+                //         drawCircleBarProgress()
+                //     }, 100)
+                // }
+            }, 1000)
         }
     }
 }
 
-const displayCurrentTimeLeftSession = () => {
-    const secondsLeft = currentTimeLeftSession
+const displayCurrentTimeLeftSession = (time) => {
+    // const secondsLeft = currentTimeLeftSession
+    const secondsLeft = time
     let result = ''
 
     // tratar os segundos
@@ -125,39 +128,39 @@ const displayCurrentTimeLeftSession = () => {
 }
 
 const stopClock = () => {
-    setUpdatedTimers() // esse segundo aqui q atualiza o timer do break
     displaySessionLog(type)
     clearInterval(clockTimer)
+    // clearInterval(clockDraw) // teste
     isClockStopped = true
     isClockRunning = false
     currentTimeLeftSession = workSessionDuration
 
-    displayCurrentTimeLeftSession()
+    displayCurrentTimeLeftSession(currentTimeLeftSession)
     c.clearRect(0, 0, can.width, can.height)
     type = 'Work'
     timeSpentInCurrentSession = 0
 }
 
 const stepDown = () => {
+    // controla o tempo restante da sessao
     if (currentTimeLeftSession > 0) {
+        isDrawRunning = true
         currentTimeLeftSession--
         timeSpentInCurrentSession++
     } else if (currentTimeLeftSession === 0) {
-        // timeSpentInCurrentSession = 0
+
+        isDrawRunning = false
         if (type === 'Work') {
-            currentTimeLeftSession = breakSessionDuration // precisaria atualizar aqui :/
-            // o desenho no canvas fica adiantado a ideia de tempo do timer :x
-            // drawCircleBar()
-            // console.log("limpo")
+            currentTimeLeftSession = breakSessionDuration
+            longTimeBreakSession()
             displaySessionLog('Work')
             type = 'Break'
             currentTaskLabel.value = 'Break'
             currentTaskLabel.disabled = true
         } else {
             currentTimeLeftSession = workSessionDuration
-            // drawCircleBar()
-            // console.log("limpo")
             type = 'Work'
+            contBreakSessions += 1
             if (currentTaskLabel.value === 'Break') {
                 currentTaskLabel.value = 'Work'
                 currentTaskLabel.disabled = false
@@ -165,9 +168,9 @@ const stepDown = () => {
             displaySessionLog('Break')
         }
         timeSpentInCurrentSession = 0
-        drawCircleBar()
+        incremento = 360/currentTimeLeftSession
     }
-    displayCurrentTimeLeftSession()
+    displayCurrentTimeLeftSession(currentTimeLeftSession)
 }
 
 const displaySessionLog = (type) => {
@@ -190,36 +193,6 @@ const displaySessionLog = (type) => {
     sessionsList.appendChild(li)
 }
 
-const displayButtons = () => {
-    if (isClockStopped) {
-
-    }
-}
-
-const minutesToSeconds = mins => {
-    return mins * 60
-}
-
-const setUpdatedTimers = () => {
-
-    // if (isClockStopped) {
-    //     console.log("aqui")
-    //     workSessionDuration = updateWorkSessionDuration
-    //     breakSessionDuration = updateBreakSessionDuration
-    // }
-    // tinha uma verificação de type aqui mas eu removi pq quero atualizar os timers  juntos :/
-    // isso aqui ta errado
-    if (type === "Work") {
-        // atualizar o timer
-        currentTimeLeftSession = updateWorkSessionDuration ? updateWorkSessionDuration : workSessionDuration
-        workSessionDuration = currentTimeLeftSession
-    }
-    else {
-        currentTimeLeftSession = updateBreakSessionDuration ? updateBreakSessionDuration : breakSessionDuration
-        breakSessionDuration = currentTimeLeftSession
-    }
-}
-
 const drawCircleBar = () => {
     // o fundo cinza do relógio
     // when stop the timer call this
@@ -235,22 +208,123 @@ const drawCircleBar = () => {
     degrees = 0
 }
 
-const drawCircleBarProgress = () => {
+const drawCircleBarProgress = (incremento) => {
     // to usando segundos aqui
     // quero usar milisegundos
     // var incremento = (type === 'Work') ? 360/(workSessionDuration * 10) : 360/(breakSessionDuration * 10)
 
-    var incremento = (type === 'Work') ? 360/workSessionDuration : 360/breakSessionDuration
-
     degrees += incremento
+
     c.beginPath()
-    // adicionar mudanças de cores verde -> amarelo -> vermelho
-    c.strokeStyle = '#6712ca'
+    c.strokeStyle = type === 'Work' ? '#12ca12' :'#123abc'
     c.lineWidth = '10'
     c.arc(posX, posY, 150, (Math.PI/180)*270, (Math.PI/180) * (270+degrees))
     c.stroke()
     if (degrees >= 360) {
         degrees = 0
     }
-    // console.log(degrees)
+}
+
+const playAudioTimerEnd = () => {
+    var audio = new Audio('audio_1.mp3')
+    audio.play()
+    audio.onended = function() {
+        audio.remove()
+        console.log("ending song celebration")
+    }
+}
+
+// só mexer aqui se o relogio estiver parado
+// pode ser a msm func aqui
+// montando a função unica
+// arrumar os disables :/
+
+const setUpdatedTimers = (button) => {
+    // isso precisa funcionar tanto para o break quanto para a work
+
+    if (button === 1) {
+        // min++
+        currentTimeLeftSession += 60
+        displayCurrentTimeLeftSession(currentTimeLeftSession)
+    } else if (button === 2) {
+        // min--
+        currentTimeLeftSession -= 60
+        displayCurrentTimeLeftSession(currentTimeLeftSession)
+    } else if (button == 3) {
+        // sec++
+        currentTimeLeftSession += 1
+        displayCurrentTimeLeftSession(currentTimeLeftSession)
+    } else {
+        // sec--
+        currentTimeLeftSession -= 1
+        displayCurrentTimeLeftSession(currentTimeLeftSession)
+    }
+    // verificar
+    disableButtons()
+    if (mode) {
+        workSessionDuration = currentTimeLeftSession
+    } else breakSessionDuration = currentTimeLeftSession
+}
+
+const disableButtons = () => {
+    // verificar as condicoes p butons de aumento
+    //e decremento estarem desabilitados ou n
+    var buttonMinUp = document.querySelector('#min-up')
+    var buttonMinDown = document.querySelector('#min-down')
+    var buttonSecUp = document.querySelector('#sec-up')
+    var buttonSecDown = document.querySelector('#sec-down')
+
+    if (currentTimeLeftSession + 60 <= 3600) {
+        // buttonMinUp.disabled = false
+        buttonMinUp.classList.remove('disable')
+    // } else buttonMinUp.disabled = true
+    } else buttonMinUp.classList.add('disable')
+    if (currentTimeLeftSession + 1 <= 3600) {
+        // buttonSecUp.disabled = false
+        buttonSecUp.classList.remove('disable')
+    } else buttonSecUp.classList.add('disable')
+    if (currentTimeLeftSession - 60 >= 0) {
+        buttonMinDown.classList.remove('disable')
+    } else buttonMinDown.classList.add('disable')
+    if (currentTimeLeftSession - 1 >= 0) {
+        buttonSecDown.classList.remove('disable')
+    } else buttonSecDown.classList.add('disable')
+}
+
+// resetar o relogio
+const resetTimer = () => {
+    workSessionDuration = 1500
+    breakSessionDuration = 300
+    currentTimeLeftSession = 1500
+    displayCurrentTimeLeftSession(currentTimeLeftSession)
+    isClockRunning = false
+    isClockStopped = true
+    timeSpentInCurrentSession = 0
+    type = 'Work'
+    clearInterval(clockTimer)
+    c.clearRect(0, 0, can.width, can.height)
+    drawCircleBar()
+    stopButton.disabled = true
+    playPauseButton.innerText = 'Play'
+    degrees = 0
+    contBreakSessions = 1
+}
+
+// refazer isso aqui
+const disableClockActions = () => {
+    // refazer isso aqui
+    resetButton.disabled = !resetButton.disabled
+    modeWork.disabled = !modeWork.disabled
+    modeBreak.disabled = !modeBreak.disabled
+}
+
+
+// isso aqui ta ok
+const longTimeBreakSession = () => {
+    // o quarto break session é um long break session
+    if (contBreakSessions === 4) {
+        currentTimeLeftSession = 600
+        contBreakSessions = 1
+        // aumenta em cada work session :) 
+    }
 }

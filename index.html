@@ -15,31 +15,33 @@
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </header>
     <div id="app">
-        <div id="pomodoro-clock-actions">
-            <div class="pomodoro-input">
-                <label>Work Duration</label>
-                <input
-                    type="number"
-                    name="input-work-duration"
-                    id="input-work-duration">
-            </div>
-            <div class="pomodoro-input">
-                <label>Break Duration</label>
-                <input
-                    type="number"
-                    name="input-break-duration"
-                    id="input-break-duration">
-            </div>
+        <div class="pomodoro-clock-actions">
+            <button id='update-work-session'>Work</button>
+            <button id='update-break-session'>Break</button>
+            <button id='pomodoro-reset'>Reset</button>
         </div>
+
         <div id="pomodoro-container">
             <div id="pomodoro-clock">
                 <div class="canvas-wrap">
                     <canvas id="canvas" width="400" height="400"></canvas>
                     <div id="teste">
-                        <div id="pomodoro-timer"></div>
+                        <div class="pomodoro-timer-box">
+                            <div class="update-buttons up">
+                                <div class="arrow-up" id="min-up" onclick="setUpdatedTimers(1)"></div>
+                                <div class="arrow-up" id="sec-up" onclick="setUpdatedTimers(3)"></div>
+                            </div>
+
+                            <div id="pomodoro-timer"></div>
+
+                            <div class="update-buttons down">
+                                <div class="arrow-bottom" id="min-down" onclick="setUpdatedTimers(2)"></div>
+                                <div class="arrow-bottom" id="sec-down" onclick="setUpdatedTimers(4)"></div>    
+                            </div>
+                        </div>
+                            
                         <div class="pomodoro-clock-actions">
                             <button id="pomodoro-start">Start</button>
-                            <!-- <button id="pomodoro-pause">Pause</button> -->
                             <button id="pomodoro-stop">Stop</button>
                         </div>
                     </div>
@@ -56,21 +58,12 @@
                     <span>Changes made here will reflect at the start of the next work/break session</span>
                 </div>
                 <!-- <div id="pomodoro-clock-actions">
-                    <div class="pomodoro-input">
-                        <label>Work Duration</label>
-                        <input
-                            type="number"
-                            name="input-work-duration"
-                            id="input-work-duration">
-                    </div>
-                    <div class="pomodoro-input">
-                        <label>Break Duration</label>
-                        <input
-                            type="number"
-                            name="input-break-duration"
-                            id="input-break-duration">
-                    </div>
+                    <button id="min-up" onclick="setUpdatedTimers(1)">Min up</button>
+                    <button id="min-down" onclick="setUpdatedTimers(2)">Min down</button>
+                    <button id="sec-up" onclick="setUpdatedTimers(3)">Sec up</button>
+                    <button id="sec-down" onclick="setUpdatedTimers(4)">Sec down</button>
                 </div> -->
+
                 <div id="pomodoro-info">
                     <h3>Your Sessions</h3>
                     <ul id="pomodoro-sessions"></ul>
@@ -78,6 +71,7 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="main.js"></script>
+    <!-- <script type="text/javascript" src="main.js"></script> -->
+    <script type="text/javascript" src="teste.js"></script>
 </body>
 </html>
