@@ -12,7 +12,7 @@ Descobri um [repo](https://www.youtube.com/watch?v=TNzCfgwIDCY) com alguns desaf
 
 ## Bonus features
 
--   [ ] User can hear a sound playing when the timer hits `00:00` - denoting that the session has ended
+-   [x] User can hear a sound playing when the timer hits `00:00` - denoting that the session has ended
 -   [ ] User can change / customize the minutes in both sessions before starting
 -   [ ] User can set a **long break** session of 10 minutes. This will be activated every 4th **break** session
 
@@ -27,9 +27,11 @@ Descobri um [repo](https://www.youtube.com/watch?v=TNzCfgwIDCY) com alguns desaf
 - [ ] botar os botões de incremento no relógio junto com os numeros
 - [ ] botar a task label junto com o relogio tambem
 - [x] corrigir break q n reseta o canvas
-- [ ] duração do break n altera com o input (Esse aqui ta pegando oh. Preciso pensar com mais calma)
+- [x] duração do break n altera com o input (Esse aqui ta pegando oh. Preciso pensar com mais calma)
 - [x] arrumar o displaySessionLog que tava mostrando sempre "< 1 min"
 - [x] arrumar erros de logica no sessionLog (mostrar o label 
 correto)
 - [x] Redesenhar o canvas no break
 - [x] Canvas descompassado com o timer (esse aqui deu trabalho demais)
+- [ ] Arrumar os butoes no lugar certo do relogio
+- [ ] COmpletar todas as tasks e dps mudar o canvas teria sido uma boa ideia
