@@ -1,15 +1,13 @@
 .container {
     margin: 0 auto;
-    width: 540px;
+    max-width: 540px;
+    min-width: 480px;
     align-content: center;
     text-align: center;
 }
 
 .canvas-wrap {
-    align-content: center;
     position: relative;
-    width: 540px;
-    margin: 0 auto;
 }
 
 #teste {
@@ -30,8 +28,9 @@
 
 #pomodoro-timer {
     font-size: 50px;
-    color: #3949ab;
+    color: #900ffb;
     text-align: center;
+    -moz-user-select: none;
 }
 
 .pomodoro-timer-box {
@@ -63,18 +62,17 @@
 
 .arrow-up {
     border: 20px solid transparent;
-    border-bottom: 20px solid #f00;
+    border-bottom: 20px solid #ff0;
     background-color: transparent;
 }
 
 .disable {
-    /*cursor: not-allowed;*/
     pointer-events: none;
     opacity: 0.6;
 }
 
 .arrow-bottom {
     border: 20px solid transparent;
-    border-top: 20px solid #f00;
+    border-top: 20px solid #ff0;
     background-color: transparent;
 }
