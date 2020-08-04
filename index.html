@@ -2,68 +2,74 @@
 <html>
 <head>
     <title>Pomodoro APP</title>
+    <link rel="stylesheet" type="text/css" href="reset.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <header class="container">
-        <h1>Pomodoro APP</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <header>
+        <h1 class="title">Pomodoro APP</h1>
     </header>
-    <div id="app" class="container">
-        <div class="pomodoro-clock-actions">
-            <button id='update-work-session'>Work</button>
-            <button id='update-break-session'>Break</button>
-            <button id='pomodoro-reset'>Reset</button>
-        </div>
+    <div class="about container">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+    </div>
+    <div id="app">
+        <div id="pomodoro-clock" class="container">
+            <div class="canvas-wrap">
+                <canvas id="canvas" width="400" height="400"></canvas>
+                <div id="teste">
 
-        <div id="pomodoro-container">
-            <div id="pomodoro-clock">
-                <div class="canvas-wrap container">
-                    <canvas id="canvas" width="400" height="400"></canvas>
-                    <div id="teste">
-                        <div class="pomodoro-timer-box">
-                            <div class="update-buttons up">
-                                <div class="arrow-up" id="min-up" onclick="setUpdatedTimers(1)"></div>
-                                <div class="arrow-up" id="sec-up" onclick="setUpdatedTimers(3)"></div>
-                            </div>
+                    <div class="pomodoro-clock-actions">
+                        <button id="pomodoro-start">Start</button>
+                        <button id="pomodoro-stop">Stop</button>
+                    </div>
 
-                            <div id="pomodoro-timer"></div>
-
-                            <div class="update-buttons down">
-                                <div class="arrow-bottom" id="min-down" onclick="setUpdatedTimers(2)"></div>
-                                <div class="arrow-bottom" id="sec-down" onclick="setUpdatedTimers(4)"></div>    
-                            </div>
+                    <div class="pomodoro-timer-box">
+                        <div class="update-buttons up">
+                            <div class="arrow-up" id="min-up" onclick="setUpdatedTimers(1)"></div>
+                            <div class="arrow-up" id="sec-up" onclick="setUpdatedTimers(3)"></div>
                         </div>
-                            
-                        <div class="pomodoro-clock-actions">
-                            <button id="pomodoro-start">Start</button>
-                            <button id="pomodoro-stop">Stop</button>
+
+                        <div id="pomodoro-timer"></div>
+
+                        <div class="update-buttons down">
+                            <div class="arrow-bottom" id="min-down" onclick="setUpdatedTimers(2)"></div>
+                            <div class="arrow-bottom" id="sec-down" onclick="setUpdatedTimers(4)"></div>    
                         </div>
                     </div>
-                </div>
-                <div>
-                    <input
-                        type="text"
-                        id="pomodoro-clock-task"
-                        placeholder="Enter your task..."
-                        value=""
-                    >
-                </div>
-                <div id="pomodoro-clock-title">
-                    <span>Changes made here will reflect at the start of the next work/break session</span>
-                </div>
-                <div id="pomodoro-info">
-                    <h3>Your Sessions</h3>
-                    <ul id="pomodoro-sessions"></ul>
+                        
+                    
+
+                    <div class="task-label">
+                        <input
+                            type="text"
+                            id="pomodoro-clock-task"
+                            placeholder="Enter your task..."
+                            value=""
+                        >
+                    </div>
+                    <div id="task-label" class="hide"></div>
                 </div>
             </div>
+
+            <div id="pomodoro-clock-actions" class="pomodoro-clock-actions">
+                <button id='update-work-session'>Work</button>
+                <button id='update-break-session'>Break</button>
+                <button id='pomodoro-reset'>Reset</button>
+            </div>
+        </div>
+
+        <div id="pomodoro-info" class="info container hide">
+            <h3>Your Sessions</h3>
+            <ul id="pomodoro-sessions"></ul>
         </div>
     </div>
     <script type="text/javascript" src="main.js"></script>
