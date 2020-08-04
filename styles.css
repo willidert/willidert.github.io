@@ -1,9 +1,29 @@
+body {
+    background-color: #aa43;
+}
+
 .container {
     margin: 0 auto;
     max-width: 540px;
     min-width: 480px;
     align-content: center;
     text-align: center;
+    box-shadow: 0 1px 4px 0 rgba(12, 12, 13, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+
+.title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    padding: 20px;
+    background-color: #6aaa;
+    color: #672aaa;
+    margin-bottom: 10px;
+    /*height: 50px;*/
 }
 
 .canvas-wrap {
@@ -34,16 +54,19 @@
 }
 
 .pomodoro-timer-box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
 }
 
 .pomodoro-clock-actions {
-    text-align: center;
+    margin-bottom: 15px;
+}
+
+.task-label input {
+    box-shadow: 0 1px 4px 0 rgba(12, 12, 13, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.15);
+    border: solid 1px #ee32;
+    padding: 5px;
+
 }
 
 .pomodoro-clock-actions button {
@@ -57,7 +80,7 @@
     display: flex;
     justify-content: space-between;
     align-self: center;
-    width: 84%;
+    width: 60%;
 }
 
 .arrow-up {
@@ -75,4 +98,21 @@
     border: 20px solid transparent;
     border-top: 20px solid #ff0;
     background-color: transparent;
+}
+
+.info h3{
+    color: #345bce;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 5px;
+}
+
+.hide {
+    display: none;
+}
+
+.session-log {
+    border-radius: 4px;
+    padding: 8px;
+    margin: 5px;
 }
