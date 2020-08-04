@@ -80,6 +80,7 @@ const toggleClock = (reset) => {
         if (isClockRunning === true) {
             // Pause the timer
             isClockRunning = false
+            // hideClockActions()
             // isClockStopped = true
             clearInterval(clockTimer)
             // clearInterval(clockDraw)
@@ -87,8 +88,10 @@ const toggleClock = (reset) => {
         }
         else {
             isClockStopped = false
+            disableClockActions()
             isClockRunning = true
             playPauseButton.innerText = "Pause"
+            // hideClockActions()
             stopButton.disabled = false
             // start the timer
             clockTimer = setInterval(() => {
@@ -132,6 +135,7 @@ const stopClock = () => {
     clearInterval(clockTimer)
     // clearInterval(clockDraw) // teste
     isClockStopped = true
+    disableClockActions()
     isClockRunning = false
     currentTimeLeftSession = workSessionDuration
 
@@ -176,13 +180,22 @@ const stepDown = () => {
 const displaySessionLog = (type) => {
     const sessionsList = document.querySelector('#pomodoro-sessions')
     const li = document.createElement('li')
+    li.classList.add('session-log')
+    // botar uns ifs aqui
     let sessionlabel
     let workSessionLabel
     if (type === 'Work') {
         sessionlabel = currentTaskLabel.value ? currentTaskLabel.value : 'Work'
         workSessionLabel = sessionlabel
+        li.style.backgroundColor = '#bb1'
+    } else if (type === 'Break' && contBreakSessions == 1) {
+        // long break
+        sessionlabel = 'Long Break'
+        li.style.backgroundColor = '#647687'
     } else {
+        // break
         sessionlabel = 'Break'
+        li.style.backgroundColor = '#bb9'
     }
     
 
@@ -191,6 +204,9 @@ const displaySessionLog = (type) => {
     const text = document.createTextNode(`${sessionlabel} : ${elapsedTime} min`)
     li.appendChild(text)
     sessionsList.appendChild(li)
+    const pomodoroInfo = document.querySelector('#pomodoro-info')
+    pomodoroInfo.classList.remove('hide')
+    
 }
 
 const drawCircleBar = () => {
@@ -226,6 +242,7 @@ const drawCircleBarProgress = (incremento) => {
 }
 
 const playAudioTimerEnd = () => {
+    // ativar um som quando terminar as sessões
     var audio = new Audio('audio_1.mp3')
     audio.play()
     audio.onended = function() {
@@ -294,8 +311,10 @@ const resetTimer = () => {
     displayCurrentTimeLeftSession(currentTimeLeftSession)
     isClockRunning = false
     isClockStopped = true
+    disableClockActions()
     timeSpentInCurrentSession = 0
     type = 'Work'
+    // n posso dar reset de primeira
     clearInterval(clockTimer)
     c.clearRect(0, 0, can.width, can.height)
     drawCircleBar()
@@ -305,12 +324,17 @@ const resetTimer = () => {
     contBreakSessions = 1
 }
 
-// refazer isso aqui
 const disableClockActions = () => {
     // refazer isso aqui
-    resetButton.disabled = !resetButton.disabled
-    modeWork.disabled = !modeWork.disabled
-    modeBreak.disabled = !modeBreak.disabled
+    // desabilitar o work/break e o "enter task label"
+    if (isClockStopped) {
+        // o relogio esta parado, td precisa estar habilitado
+        modeWork.disabled = false
+        modeBreak.disabled = false
+    } else {
+        modeWork.disabled = true
+        modeBreak.disabled = true
+    }
 }
 
 
