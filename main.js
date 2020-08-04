@@ -216,7 +216,7 @@ const drawCircleBarProgress = (incremento) => {
     degrees += incremento
 
     c.beginPath()
-    c.strokeStyle = type === 'Work' ? '#12ca12' :'#123abc'
+    c.strokeStyle = type === 'Work' ? '#8e24aa' :'#ffeb3b'
     c.lineWidth = '10'
     c.arc(posX, posY, 150, (Math.PI/180)*270, (Math.PI/180) * (270+degrees))
     c.stroke()
@@ -233,11 +233,6 @@ const playAudioTimerEnd = () => {
         console.log("ending song celebration")
     }
 }
-
-// só mexer aqui se o relogio estiver parado
-// pode ser a msm func aqui
-// montando a função unica
-// arrumar os disables :/
 
 const setUpdatedTimers = (button) => {
     // isso precisa funcionar tanto para o break quanto para a work
