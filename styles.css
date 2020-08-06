@@ -19,11 +19,9 @@ body {
     text-align: center;
     font-weight: bold;
     font-size: 24px;
-    padding: 20px;
     background-color: #6aaa;
     color: #672aaa;
-    margin-bottom: 10px;
-    /*height: 50px;*/
+    box-shadow: none;
 }
 
 .canvas-wrap {
@@ -116,3 +114,12 @@ body {
     padding: 8px;
     margin: 5px;
 }
+
+
+/*tentando deixar responsivo
+@media screen and (max-width: 900px) {
+    .container {
+        min-width: 480px;
+        max-width: 600px; 
+    }
+}*/

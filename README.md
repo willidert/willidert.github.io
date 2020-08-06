@@ -39,6 +39,7 @@ correto)
 - [x] arrumar o js das novas alterações
 - [ ] corrigir os ajustes da Nath
 - [ ] corrigir bug do setUpdatedTimers q inicia apartir do currentTime e não da workSessionDuration
+- [ ] deixar responsivo
 - [ ] arrumar layout para pc:
 
 ```
